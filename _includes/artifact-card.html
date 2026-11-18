@@ -1,0 +1,14 @@
+<a class="entry" href="{{ include.item.url | relative_url }}">
+<span class="entry-media">
+{%- if include.item.image != blank -%}
+<img src="{% include media-url.html path=include.item.image %}" alt="" loading="lazy">
+{%- else -%}
+<span class="no-image">No image</span>
+{%- endif -%}
+</span>
+<span class="entry-text">
+{%- if include.item.order -%}<span class="catno">No. {{ include.item.order }}</span>{%- endif -%}
+<strong class="entry-title">{{ include.item.title }}</strong>
+<span class="entry-by">{{ include.item.creator }}</span>
+</span>
+</a>

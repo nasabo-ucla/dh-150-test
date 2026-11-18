@@ -1,0 +1,16 @@
+---
+title: Artifacts
+permalink: /artifacts/
+layout: page
+subtitle: The objects in this archive, in catalog order.
+---
+{%- assign items = site.artifacts | sort: "order" -%}
+{%- if items.size == 0 -%}
+<p>No artifacts yet. Add one in Pages CMS under Artifacts.</p>
+{%- else -%}
+<div class="grid">
+{%- for a in items -%}
+{%- include artifact-card.html item=a -%}
+{%- endfor -%}
+</div>
+{%- endif -%}

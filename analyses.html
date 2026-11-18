@@ -1,0 +1,19 @@
+---
+title: AI analyses
+permalink: /analyses/
+layout: page
+subtitle: Manual and AI approaches compared, and whether each tool is ready for archives.
+---
+{%- if site.analyses.size == 0 -%}
+<p>No analyses yet. Add one in Pages CMS under AI analyses.</p>
+{%- else -%}
+<ul class="rows">
+{%- for a in site.analyses -%}
+<li>
+<a href="{{ a.url | relative_url }}">{{ a.title }}</a>
+<span>{{ a.task_type }}</span>
+<span>{{ a.verdict }}</span>
+</li>
+{%- endfor -%}
+</ul>
+{%- endif -%}

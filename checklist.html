@@ -1,0 +1,81 @@
+---
+title: Project checklist
+permalink: /checklist/
+layout: page
+subtitle: A live count of what your site contains, checked against the assignment.
+---
+{%- assign n_art = site.artifacts | size -%}
+{%- assign art_words = 0 -%}
+{%- for a in site.artifacts -%}
+{%- assign w = a.content | strip_html | number_of_words -%}
+{%- assign art_words = art_words | plus: w -%}
+{%- endfor -%}
+{%- assign n_an = site.analyses | size -%}
+{%- assign an_words = 0 -%}
+{%- for a in site.analyses -%}
+{%- assign w = a.content | strip_html | number_of_words -%}
+{%- assign an_words = an_words | plus: w -%}
+{%- endfor -%}
+{%- assign n_types = site.analyses | map: "task_type" | compact | uniq | size -%}
+{%- assign paper = site.pages | where: "path", "paper.md" | first -%}
+{%- assign paper_words = paper.content | strip_html | number_of_words -%}
+
+<p>These counts are approximate. They count the main written text of each entry (the plaque or write-up), not the metadata fields, and the paper count includes headings and the works cited list. Use them as a rough guide, then check the assignment sheet. Sample entries count until you delete them.</p>
+
+<table class="checks">
+<thead>
+<tr><th scope="col">Requirement</th><th scope="col">Your site</th><th scope="col">Needed</th><th scope="col">Status</th></tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Number of artifacts</th>
+<td>{{ n_art }}</td>
+<td>5 to 20</td>
+<td>{% if n_art >= 5 and n_art <= 20 %}<span class="ok">Met</span>{% elsif n_art < 5 %}<span class="no">Too few</span>{% else %}<span class="no">Too many</span>{% endif %}</td>
+</tr>
+<tr>
+<th scope="row">Words in artifact plaques</th>
+<td>{{ art_words }}</td>
+<td>1000 or more</td>
+<td>{% if art_words >= 1000 %}<span class="ok">Met</span>{% else %}<span class="no">Not yet</span>{% endif %}</td>
+</tr>
+<tr>
+<th scope="row">Number of analyses</th>
+<td>{{ n_an }}</td>
+<td>5 or more</td>
+<td>{% if n_an >= 5 %}<span class="ok">Met</span>{% else %}<span class="no">Not yet</span>{% endif %}</td>
+</tr>
+<tr>
+<th scope="row">Different types of analysis</th>
+<td>{{ n_types }}</td>
+<td>5 or more</td>
+<td>{% if n_types >= 5 %}<span class="ok">Met</span>{% else %}<span class="no">Not yet</span>{% endif %}</td>
+</tr>
+<tr>
+<th scope="row">Words in analyses</th>
+<td>{{ an_words }}</td>
+<td>500 or more</td>
+<td>{% if an_words >= 500 %}<span class="ok">Met</span>{% else %}<span class="no">Not yet</span>{% endif %}</td>
+</tr>
+<tr>
+<th scope="row">Words in the paper</th>
+<td>{{ paper_words }}</td>
+<td>1500 to 2000</td>
+<td>{% if paper_words >= 1500 and paper_words <= 2000 %}<span class="ok">Met</span>{% elsif paper_words < 1500 %}<span class="no">Too short</span>{% else %}<span class="no">Too long</span>{% endif %}</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Artifacts missing a creator or rights statement</h2>
+{%- assign missing = 0 -%}
+<ul>
+{%- for a in site.artifacts -%}
+{%- if a.creator == blank or a.rights == blank -%}
+{%- assign missing = missing | plus: 1 -%}
+<li><a href="{{ a.url | relative_url }}">{{ a.title }}</a></li>
+{%- endif -%}
+{%- endfor -%}
+</ul>
+{%- if missing == 0 -%}
+<p>None. Every artifact has both.</p>
+{%- endif -%}

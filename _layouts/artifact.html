@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<article class="artifact">
+<p class="back"><a href="{{ '/artifacts/' | relative_url }}">Back to all artifacts</a></p>
+<header>
+{% if page.order %}<p class="catno">No. {{ page.order }}</p>{% endif %}
+<h1>{{ page.title }}</h1>
+</header>
+<div class="artifact-grid">
+<div class="artifact-media">
+{%- if page.embed_url != blank -%}
+<div class="embed"><iframe src="{{ page.embed_url }}" title="{{ page.title }}" allowfullscreen loading="lazy"></iframe></div>
+{%- elsif page.image != blank -%}
+<figure><img src="{% include media-url.html path=page.image %}" alt="{{ page.image_alt }}"></figure>
+{%- endif -%}
+</div>
+<dl class="facts">
+{%- if page.creator != blank -%}<div><dt>Creator</dt><dd>{{ page.creator }}</dd></div>{%- endif -%}
+{%- if page.date_created != blank -%}<div><dt>Date</dt><dd>{{ page.date_created }}</dd></div>{%- endif -%}
+{%- if page.medium != blank -%}<div><dt>Medium</dt><dd>{{ page.medium }}</dd></div>{%- endif -%}
+{%- if page.rights != blank -%}<div><dt>Rights</dt><dd>{{ page.rights }}</dd></div>{%- endif -%}
+{%- if page.source_url != blank -%}<div><dt>Source</dt><dd><a href="{{ page.source_url }}">{{ page.source_url }}</a></dd></div>{%- endif -%}
+{%- if page.tags.size > 0 -%}<div><dt>Tags</dt><dd>{{ page.tags | join: ", " }}</dd></div>{%- endif -%}
+</dl>
+</div>
+<div class="plaque prose">
+{{ content }}
+</div>
+</article>

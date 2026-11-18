@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<section class="hero">
+<h1>{{ site.title }}</h1>
+<p class="lede">{{ page.subtitle | default: site.description }}</p>
+<div class="prose">
+{{ content }}
+</div>
+<p class="actions">
+<a class="button" href="{{ '/artifacts/' | relative_url }}">Browse the archive</a>
+<a class="button secondary" href="{{ '/paper/' | relative_url }}">Read the argument</a>
+</p>
+</section>
+{%- assign items = site.artifacts | sort: "order" -%}
+{%- if items.size > 0 -%}
+<section class="featured" aria-labelledby="featured-heading">
+<h2 id="featured-heading">From the archive</h2>
+<div class="grid">
+{%- for a in items limit: 4 -%}
+{%- include artifact-card.html item=a -%}
+{%- endfor -%}
+</div>
+</section>
+{%- endif -%}

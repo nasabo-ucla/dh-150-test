@@ -1,0 +1,165 @@
+# Settings for Pages CMS (pagescms.org), the online editor for this site.
+# Students do not need to touch this file.
+
+media:
+  input: assets/images
+  output: /assets/images
+
+content:
+  - name: home
+    label: Home page
+    type: file
+    path: index.md
+    fields:
+      - name: subtitle
+        label: One-sentence description of the archive
+        type: text
+      - name: body
+        label: Welcome text
+        type: rich-text
+
+  - name: artifacts
+    label: Artifacts
+    type: collection
+    path: _artifacts
+    view:
+      fields: [title, creator, order]
+      primary: title
+    fields:
+      - name: title
+        label: Title of the artifact
+        type: string
+        required: true
+      - name: order
+        label: Catalog number
+        type: number
+        description: "Controls the order artifacts appear in (1, 2, 3...)."
+      - name: creator
+        label: Creator
+        type: string
+        required: true
+        description: "Author, artist, director, or team. Write 'Unknown' if it truly is."
+      - name: date_created
+        label: Date
+        type: string
+        description: "A year, a range, or 'circa 1950'."
+      - name: medium
+        label: Medium or format
+        type: string
+        description: "For example: oil on canvas, short film, printed book, field recording."
+      - name: rights
+        label: Rights and permissions
+        type: string
+        required: true
+        description: "Public domain, my own work, a short excerpt used for commentary, or linked from the original platform."
+      - name: source_url
+        label: Link to the original source
+        type: string
+      - name: image
+        label: Image
+        type: image
+      - name: image_alt
+        label: Image description (alt text)
+        type: text
+        description: "Describe the image for someone who cannot see it, in one or two sentences."
+      - name: embed_url
+        label: Video or audio embed link (optional)
+        type: string
+        description: "Use the embed link from YouTube or SoundCloud, not the normal page link."
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: body
+        label: Museum plaque text
+        type: rich-text
+
+  - name: analyses
+    label: AI analyses
+    type: collection
+    path: _analyses
+    view:
+      fields: [title, task_type, verdict]
+      primary: title
+    fields:
+      - name: title
+        label: Title of this analysis
+        type: string
+        required: true
+      - name: task_type
+        label: Type of analysis
+        type: select
+        required: true
+        options:
+          values:
+            - "Description / metadata creation"
+            - "Sentiment analysis"
+            - "Translation"
+            - "Transcription (audio)"
+            - "Transcription (OCR)"
+            - "Classification / tagging"
+            - "Natural language processing"
+            - "Audio creation"
+            - "Image creation"
+            - "Video creation"
+            - "Other"
+      - name: artifact
+        label: Artifact analyzed
+        type: string
+      - name: tool
+        label: AI tool and version
+        type: string
+        required: true
+      - name: prompt_settings
+        label: Prompt or settings used
+        type: text
+      - name: manual_approach
+        label: How you did it manually
+        type: text
+      - name: manual_result
+        label: Manual result
+        type: string
+      - name: ai_result
+        label: AI result
+        type: string
+      - name: metric
+        label: Quantitative measure
+        type: string
+        description: "For example: percent agreement, word error rate, number of tags matched."
+      - name: norm
+        label: Norm used for comparison
+        type: text
+        description: "What counts as good enough? Name your benchmark and where it comes from."
+      - name: guardrails
+        label: Guardrails
+        type: text
+        description: "What limits or instructions did you need to get usable output?"
+      - name: verdict
+        label: Is this tool ready for use in archives?
+        type: select
+        options:
+          values:
+            - "Ready for archives"
+            - "Ready with guardrails"
+            - "Not ready"
+      - name: body
+        label: Qualitative comparison and discussion
+        type: rich-text
+
+  - name: paper
+    label: Argument paper
+    type: file
+    path: paper.md
+    fields:
+      - name: body
+        label: Paper text
+        type: rich-text
+
+  - name: about
+    label: About
+    type: file
+    path: about.md
+    fields:
+      - name: body
+        label: About the archive and the team
+        type: rich-text

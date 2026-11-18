@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<article class="analysis">
+<p class="back"><a href="{{ '/analyses/' | relative_url }}">Back to all analyses</a></p>
+<header>
+<h1>{{ page.title }}</h1>
+<p class="lede">{{ page.task_type }}{% if page.artifact != blank %}, applied to {{ page.artifact }}{% endif %}</p>
+</header>
+
+<section class="compare" aria-label="Manual and AI results">
+<div class="side">
+<h2>Manual</h2>
+{% if page.manual_approach != blank %}{{ page.manual_approach | markdownify }}{% endif %}
+{% if page.manual_result != blank %}<p class="result">{{ page.manual_result }}</p>{% endif %}
+</div>
+<div class="side">
+<h2>AI</h2>
+{% if page.tool != blank %}<p>Tool: {{ page.tool }}</p>{% endif %}
+{% if page.prompt_settings != blank %}{{ page.prompt_settings | markdownify }}{% endif %}
+{% if page.ai_result != blank %}<p class="result">{{ page.ai_result }}</p>{% endif %}
+</div>
+</section>
+
+<dl class="facts wide">
+{%- if page.metric != blank -%}<div><dt>Quantitative measure</dt><dd>{{ page.metric }}</dd></div>{%- endif -%}
+{%- if page.norm != blank -%}<div><dt>Norm for comparison</dt><dd>{{ page.norm | markdownify }}</dd></div>{%- endif -%}
+{%- if page.guardrails != blank -%}<div><dt>Guardrails</dt><dd>{{ page.guardrails | markdownify }}</dd></div>{%- endif -%}
+{%- if page.verdict != blank -%}<div><dt>Ready for use in archives?</dt><dd><strong class="verdict {{ page.verdict | slugify }}">{{ page.verdict }}</strong></dd></div>{%- endif -%}
+</dl>
+
+<div class="prose">
+{{ content }}
+</div>
+</article>
